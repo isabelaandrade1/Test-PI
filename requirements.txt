@@ -1,6 +1,9 @@
 Flask==2.0.1
 tensorflow==2.17.0
+numpy==1.19.5
+setuptools==70.3.0
 scikit-learn==0.24.2
 pandas==1.2.4
-numpy==1.19.5
 gunicorn==20.1.0
+cython==0.29.24
+scipy==1.5.4
