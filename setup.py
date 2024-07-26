@@ -43,7 +43,7 @@ setup(
         "requests==2.32.3",
         "rich==13.7.1",
         "scikit-learn==1.5.1",
-        "scipy==1.11.2",
+        "scipy==1.5.4",
         "setuptools==71.1.0",
         "six==1.16.0",
         "tensorboard==2.17.0",
