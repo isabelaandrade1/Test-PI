@@ -11,7 +11,7 @@ setup(
         "pandas==2.2.2",
         "gunicorn==20.1.0",
         "Cython==3.0.10",
-        "scipy==1.5.4",
+        "scipy==1.6.0",
         "wheel==0.43.0",
         "Werkzeug==2.0.3"
     ],
