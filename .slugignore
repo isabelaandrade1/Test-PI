@@ -1,0 +1,8 @@
+*.log
+*.md
+tests/
+node_modules/
+*.tar.gz
+*.zip
+.DS_Store
+.vscode/
