@@ -6,3 +6,11 @@ node_modules/
 *.zip
 .DS_Store
 .vscode/
+__pycache__/
+*.py[cod]
+*.so
+*.ipynb_checkpoints
+*.DS_Store
+*.egg
+*.egg-info
+.installed.cfg
