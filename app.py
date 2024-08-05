@@ -1,38 +1,28 @@
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, BatchNormalization, Dropout
-from sklearn.datasets import load_iris
-from sklearn.preprocessing import StandardScaler
-from sklearn.model_selection import train_test_split
+from flask import Flask, render_template, request, jsonify
 import tensorflow as tf
+import numpy as np
 
-# Carregar e pré-processar dados (usando dataset de exemplo Iris)
-data = load_iris()
-X = data.data
-y = tf.keras.utils.to_categorical(data.target, num_classes=3)
+app = Flask(__name__)
 
-# Dividir os dados em conjuntos de treino e validação
-X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=0.2, random_state=42)
+# Carregue o seu modelo treinado
+model = tf.keras.models.load_model('modelo_ia.keras')
 
-# Normalizar os dados
-scaler = StandardScaler()
-X_train = scaler.fit_transform(X_train)
-X_val = scaler.transform(X_val)
+# Rota principal para verificar se o servidor está funcionando
+@app.route('/')
+def home():
+    return "Servidor Flask está rodando!"
 
-# Definir o modelo
-model = Sequential()
-model.add(Dense(128, activation='relu', input_shape=(4,)))
-model.add(BatchNormalization())
-model.add(Dropout(0.5))
-model.add(Dense(64, activation='relu'))
-model.add(Dropout(0.5))
-model.add(Dense(32, activation='relu'))
-model.add(Dense(3, activation='softmax'))
+# Rota para renderizar uma página HTML
+@app.route('/pagina')
+def pagina():
+    return render_template('pagina.html')
 
-model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+# Rota para previsão usando o modelo treinado
+@app.route('/prever', methods=['POST'])
+def prever():
+    dados = request.get_json()
+    previsao = model.predict([dados['input']])
+    return jsonify({'previsao': previsao.tolist()})
 
-# Treinar o modelo
-model.fit(X_train, y_train, epochs=100, validation_data=(X_val, y_val))
-
-# Salvar o modelo no formato Keras
-model.save('modelo_ia.keras')
-print("Modelo salvo como 'modelo_ia.keras'")
+if __name__ == '__main__':
+    app.run(debug=True)
